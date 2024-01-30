@@ -1,0 +1,19 @@
+{
+  "UNAUTHORIZED": "You are not authorized to access this resource.",
+  "MISSING_AUTH_TOKEN": "Authentication token is missing in the request.",
+  "INVALID_TOKEN": "Token invalid.",
+  "EXPIRED_TOKEN": "Token expired.",
+  "RESOURCE_NOT_FOUND": "Sorry, we could not find the requested resource.",
+  "UNEXPECTED_ERROR": "An unexpected error has occurred, please try again after few minutes or contact",
+  "ENTITY_NOT_FOUND": "{field} not found for {id}",
+  "ALREADY_EXIST": "{field} already exist in the system.",
+  "VALIDATIONS": {
+    "isNotEmpty": "{field} is mandatory",
+    "isInvalid": "{field} is invalid"
+  },
+  "INSUFFICIENT_BALANCE": "This wallet has Insufficient Balance.",
+  "INTERSERVICE_ERROR": "Error calling another service",
+  "SUCCESS": "Operation was successful",
+  "PARTIAL_SUCCESS": "Operation was partially successful",
+  "FILE_NOT_FOUND": "File not found"
+}

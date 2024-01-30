@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package wallet;
+
+service WalletService {
+    rpc CheckBalance(WalletInquiryMsg) returns (WalletBalanceMsg) {}
+    rpc ChargeWallet(WalletMsg) returns (WalletReturnMsg) {}
+    rpc RechargeWallet(WalletMsg) returns (WalletReturnMsg) {}
+  }
+
+  enum CountryEnum {
+    PK = 0;
+    SA = 1;
+  }
+
+  enum TransactionTypeEnum {
+    ORDER_PAYMENT = 0;
+    ORDER_TOPUP = 1;
+    TOPUP_TOPUP = 2;
+    TOPUP_LOYALTY = 3;
+    BATCH_TOPUP = 4;
+  }
+  
+  message WalletInquiryMsg {
+    string retailerId = 1;
+    CountryEnum countryCode = 2;
+  }
+
+  message WalletBalanceMsg {
+    WalletInquiryMsg walletInquiry = 1;
+    double amount = 2;
+  }
+
+  message WalletMsg {
+    string subTransactionId = 1;
+    string retailerId = 2;
+    CountryEnum countryCode = 3;
+    double amount = 4;
+    optional TransactionTypeEnum transactionType = 5;
+    optional string comment = 6;
+  }
+  
+  message WalletReturnMsg {
+    string id = 1;
+}

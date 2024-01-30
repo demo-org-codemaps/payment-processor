@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  backend:
+    container_name: ${PAYMENT_SERVICE_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+#      args:
+#        GH_NPM_TOKEN:
+    volumes:
+      - .:/usr/src/app
+      - payment-nodemodules:/usr/src/app/node_modules
+    ports:
+      - ${PAYMENT_APP_PORT}:${PAYMENT_APP_PORT}
+      # - 50052:5000 # GRPC external port (for bloomRPC debugging)
+      - 9222:9229 # Debug external port (for vscode debugging)
+    command: yarn run start:debug
+    env_file:
+      - .env.dev
+    networks:
+      - ${PAYMENT_SERVICE_NETWORK_NAME}
+      - ${GRPC_NETWORK_NAME}
+    # depends_on:
+    #   - db
+  db:
+    container_name: ${PAYMENT_DB_CONTAINER_NAME}
+    platform: linux/x86_64
+    image: mysql:5.7@sha256:9415bfb9a83752d30b6395c84dde03573eeba7b5b9c937c0e09c3e7b32c76c93
+    restart: always
+    networks:
+      - ${PAYMENT_SERVICE_NETWORK_NAME}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${PAYMENT_DB_NAME}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${PAYMENT_DB_PORT}:${DB_PORT}
+    volumes:
+      - payment-mysql-db:/var/lib/mysql
+networks:
+  payment-network:
+  grpc-network:
+volumes:
+  payment-mysql-db:
+  payment-nodemodules:
