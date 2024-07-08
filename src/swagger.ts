@@ -24,7 +24,6 @@ export function setupSwagger(app: INestApplication): void {
       validatorUrl: null,
     },
   };
-
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(`${CONSTANTS.API_VERSION}api-docs`, app, document, customOptions);
 }
